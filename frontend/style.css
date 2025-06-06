@@ -1,0 +1,558 @@
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+    --quantum-color: #9b59b6;
+    --accent-color: #1abc9c;
+    --text-color: #333;
+    --light-gray: #f8f9fa;
+    --medium-gray: #e9ecef;
+    --dark-gray: #6c757d;
+    --success-color: #28a745;
+    --error-color: #dc3545;
+    --shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 30px 20px;
+    background-color: var(--light-gray);
+    color: var(--text-color);
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    z-index: -1;
+}
+
+h1, h2, h3 {
+    color: var(--primary-color);
+    text-align: center;
+    font-weight: 600;
+}
+
+h1 {
+    margin-bottom: 40px;
+    font-size: 2.5rem;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+h1::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: var(--quantum-color);
+}
+
+h2 {
+    margin-bottom: 20px;
+    font-size: 1.6rem;
+    position: relative;
+    display: inline-block;
+}
+
+.navbar {
+    background-color: var(--primary-color);
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    margin-bottom: 30px;
+}
+
+.navbar a {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.2s;
+    font-weight: 500;
+}
+
+.navbar a:hover {
+    background-color: var(--quantum-color);
+    transform: translateY(-2px);
+}
+
+.navbar a.active {
+    background-color: var(--quantum-color);
+}
+
+.container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    margin-bottom: 30px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background: var(--quantum-color);
+}
+
+.form-group {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--primary-color);
+    font-size: 0.95rem;
+}
+
+input[type="text"], 
+input[type="email"], 
+input[type="password"], 
+textarea, 
+select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 16px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    background-color: #fcfcfc;
+}
+
+input:focus, 
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: var(--quantum-color);
+    box-shadow: 0 0 0 3px rgba(155, 89, 182, 0.25);
+}
+
+textarea {
+    height: 120px;
+    resize: vertical;
+}
+
+button {
+    background-color: var(--quantum-color);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 10px;
+    transition: background-color 0.3s, transform 0.2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+}
+
+button i {
+    margin-right: 8px;
+}
+
+button:hover {
+    background-color: #8e44ad;
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: translateY(1px);
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+.section-header i {
+    margin-right: 10px;
+    color: var(--quantum-color);
+    font-size: 1.4rem;
+}
+
+.hidden {
+    display: none;
+}
+
+.status {
+    margin-top: 20px;
+    padding: 12px 15px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.status.visible {
+    opacity: 1;
+}
+
+.status i {
+    margin-right: 10px;
+    font-size: 1.2rem;
+}
+
+.success {
+    background-color: rgba(40, 167, 69, 0.15);
+    color: var(--success-color);
+    border-left: 4px solid var(--success-color);
+}
+
+.error {
+    background-color: rgba(220, 53, 69, 0.15);
+    color: var(--error-color);
+    border-left: 4px solid var(--error-color);
+}
+
+.email-list {
+    list-style: none;
+    padding: 0;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.email-item {
+    padding: 15px;
+    border-bottom: 1px solid var(--medium-gray);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background-color 0.2s;
+}
+
+.email-item:last-child {
+    border-bottom: none;
+}
+
+.email-item:hover {
+    background-color: var(--light-gray);
+}
+
+.security-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    margin-left: 10px;
+    background-color: rgba(155, 89, 182, 0.15);
+    color: var(--quantum-color);
+}
+
+.security-badge i {
+    margin-right: 5px;
+}
+
+.security-info {
+    background-color: rgba(155, 89, 182, 0.1);
+    border-left: 4px solid var(--quantum-color);
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 6px;
+}
+
+.security-info h3 {
+    color: var(--quantum-color);
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.security-info ul {
+    padding-left: 20px;
+}
+
+.security-info li {
+    margin-bottom: 5px;
+}
+
+.keys-container {
+    background-color: var(--light-gray);
+    padding: 15px;
+    border-radius: 6px;
+    margin-top: 20px;
+}
+
+.keys-container textarea {
+    background-color: white;
+    font-family: monospace;
+    font-size: 0.9rem;
+}
+
+.zkp-container {
+    background-color: rgba(155, 89, 182, 0.1);
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+    border-left: 4px solid var(--quantum-color);
+}
+
+.zkp-steps {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.zkp-step {
+    text-align: center;
+    flex: 1;
+    padding: 10px;
+    position: relative;
+}
+
+.zkp-step.active {
+    font-weight: bold;
+    color: var(--quantum-color);
+}
+
+.zkp-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--medium-gray);
+    z-index: -1;
+}
+
+.zkp-step-number {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 50%;
+    background-color: var(--light-gray);
+    margin-bottom: 5px;
+}
+
+.zkp-step.active .zkp-step-number {
+    background-color: var(--quantum-color);
+    color: white;
+}
+
+.zkp-info {
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: rgba(52, 152, 219, 0.1);
+    border-radius: 4px;
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 20px 15px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+}
+
+.wallet-header {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: rgba(155, 89, 182, 0.1);
+    border-radius: 6px;
+}
+
+.wallet-id {
+    font-family: monospace;
+    margin-top: 10px;
+    color: var(--dark-gray);
+}
+
+.wallet-created {
+    font-size: 0.9rem;
+    color: var(--dark-gray);
+    margin-top: 5px;
+}
+
+.wallet-keys {
+    margin-top: 20px;
+}
+
+.keys-list {
+    margin-top: 10px;
+}
+
+.key-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    background-color: var(--light-gray);
+    border-radius: 6px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.key-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.key-info {
+    flex: 1;
+}
+
+.key-name {
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.key-algorithm {
+    font-size: 0.85rem;
+    color: var(--dark-gray);
+}
+
+.key-actions {
+    display: flex;
+}
+
+.key-actions button {
+    padding: 6px 10px;
+    margin-left: 5px;
+    font-size: 0.9rem;
+}
+/* Add these styles to your existing CSS */
+.wallet-balance-container {
+    background: linear-gradient(135deg, var(--quantum-color) 0%, #6a0dad 100%);
+    border-radius: 12px;
+    padding: 20px;
+    color: white;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
+.wallet-balance {
+    text-align: center;
+}
+
+.wallet-balance h3 {
+    color: white;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+.balance-amount {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+.wallet-id {
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+
+.wallet-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.secondary-button {
+    background-color: var(--dark-gray);
+}
+
+.transaction-history {
+    margin-top: 30px;
+}
+
+.transaction-list {
+    background-color: var(--light-gray);
+    border-radius: 8px;
+    padding: 15px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.transaction-item {
+    padding: 12px;
+    border-bottom: 1px solid var(--medium-gray);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.transaction-item:last-child {
+    border-bottom: none;
+}
+
+.transaction-details {
+    flex: 1;
+}
+
+.transaction-amount {
+    font-weight: bold;
+}
+
+.transaction-amount.sent {
+    color: var(--error-color);
+}
+
+.transaction-amount.received {
+    color: var(--success-color);
+}
+
+.transaction-date {
+    font-size: 0.8rem;
+    color: var(--dark-gray);
+}
+
+.transaction-memo {
+    font-size: 0.9rem;
+    margin-top: 5px;
+    color: var(--dark-gray);
+}
+
+.loading-transactions {
+    text-align: center;
+    padding: 20px;
+    color: var(--dark-gray);}

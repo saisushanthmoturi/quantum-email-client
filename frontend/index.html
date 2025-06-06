@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum-Resistant Secure Email Client</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./style.css">
+
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <a href="#register" class="active" onclick="showSection('register-section')">Register</a>
+        <a href="#send" onclick="showSection('send-section')">Send Mail</a>
+        <a href="#inbox" onclick="showSection('inbox-section')">Check Inbox</a>
+        <a href="#login" onclick="showSection('login-section')">Login</a>
+        <a href="#wallet" onclick="showSection('wallet-section')">Key Wallet</a>
+        <a href="#logout" onclick="handleLogout()">Logout</a>
+    </div>
+
+    <h1>Quantum-Resistant Secure Email Client</h1>
+
+    <!-- Register Section -->
+    <div id="register-section" class="container">
+        <div class="section-header">
+            <i class="fas fa-user-shield"></i>
+            <h2>Secure Registration</h2>
+        </div>
+
+        <div class="security-info">
+            <h3><i class="fas fa-shield-alt"></i> Quantum-Resistant Security</h3>
+            <p>Your keys will be generated using quantum-resistant algorithms to protect against both classical and
+                quantum computing attacks.</p>
+            <ul>
+                <li>Hybrid encryption with extended parameters</li>
+                <li>Hash-based signatures for quantum resistance</li>
+                <li>Future-proof encryption standards</li>
+            </ul>
+        </div>
+
+        <div class="form-group">
+            <label for="crypto-algorithm">Select Encryption Algorithm:</label>
+            <select id="crypto-algorithm">
+                <option value="hybrid-rsa">Hybrid RSA-4096 with AES-256 (Recommended)</option>
+                <option value="extended-rsa">Extended RSA-8192 (Maximum Security)</option>
+                <option value="hash-based">Hash-Based Signatures (Quantum-Resistant)</option>
+                <option value="aes-256-gcm">AES-256-GCM (Symmetric Encryption)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="reg-username">Username:</label>
+            <input type="text" id="reg-username" placeholder="Enter your username" required>
+        </div>
+
+        <button type="submit" onclick="generateKeys()"><i class="fas fa-key"></i>Generate Quantum-Resistant
+            Keys</button>
+
+        <div id="keys-output" class="hidden keys-container">
+            <div class="form-group">
+                <label>Your Public Key:</label>
+                <textarea id="public-key" readonly rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Your Private Key (Keep Secret!):</label>
+                <textarea id="private-key" readonly rows="3"></textarea>
+            </div>
+            <div class="security-badge">
+                <i class="fas fa-shield-alt"></i> Quantum-Resistant
+            </div>
+        </div>
+
+        <div id="register-status" class="status"></div>
+    </div>
+
+    <!-- Send Mail Section -->
+    <div id="send-section" class="container hidden">
+        <div class="section-header">
+            <i class="fas fa-paper-plane"></i>
+            <h2>Send Secure Email</h2>
+        </div>
+
+        <div class="security-info">
+            <h3><i class="fas fa-lock"></i> End-to-End Quantum-Resistant Encryption</h3>
+            <p>Your message will be encrypted using quantum-resistant algorithms and can only be decrypted by the
+                intended recipient.</p>
+        </div>
+
+        <div class="form-group">
+            <label for="sender">Your Username:</label>
+            <input type="text" id="sender" placeholder="Your username" required>
+        </div>
+        <div class="form-group">
+            <label for="recipient">Recipient Username:</label>
+            <input type="text" id="recipient" placeholder="Recipient's username" required>
+        </div>
+        <div class="form-group">
+            <label for="subject">Subject:</label>
+            <input type="text" id="subject" placeholder="Email subject" required>
+        </div>
+        <div class="form-group">
+            <label for="content">Message:</label>
+            <textarea id="content" placeholder="Type your secure message here..." required></textarea>
+        </div>
+        <button type="submit" onclick="sendEmail()"><i class="fas fa-shield-alt"></i>Send Encrypted Email</button>
+        <div id="send-status" class="status"></div>
+    </div>
+
+    <!-- Check Inbox Section -->
+    <div id="inbox-section" class="container hidden">
+        <div class="section-header">
+            <i class="fas fa-inbox"></i>
+            <h2>Secure Inbox</h2>
+        </div>
+
+        <div class="security-info">
+            <h3><i class="fas fa-envelope-open-text"></i> Quantum-Resistant Verification</h3>
+            <p>All messages are verified using quantum-resistant digital signatures to ensure authenticity and
+                integrity.</p>
+        </div>
+
+        <div class="form-group">
+            <label for="inbox-username">Your Username:</label>
+            <input type="text" id="inbox-username" placeholder="Enter your username" required>
+        </div>
+        <button onclick="checkInbox()"><i class="fas fa-sync-alt"></i>Check Secure Inbox</button>
+        <div id="inbox-container" class="hidden">
+            <h3>Your Secure Messages</h3>
+            <ul id="email-list" class="email-list"></ul>
+        </div>
+        <div id="inbox-status" class="status"></div>
+    </div>
+
+    <!-- Login Section -->
+    <div id="login-section" class="container hidden">
+        <div class="section-header">
+            <i class="fas fa-sign-in-alt"></i>
+            <h2>Secure Login</h2>
+        </div>
+
+        <div class="security-info">
+            <h3><i class="fas fa-fingerprint"></i> Advanced Authentication</h3>
+            <p>Your login is protected with quantum-resistant cryptographic techniques.</p>
+        </div>
+
+        <div class="form-group">
+            <label for="auth-method">Authentication Method:</label>
+            <select id="auth-method" onchange="toggleAuthMethod()">
+                <option value="password">Password Authentication</option>
+                <option value="zkp">Zero Knowledge Proof (Enhanced Privacy)</option>
+            </select>
+        </div>
+
+        <form id="login-form">
+            <div class="form-group">
+                <label for="login-username">Username:</label>
+                <input type="text" id="login-username" placeholder="Enter your username" required>
+            </div>
+
+            <div id="password-auth" class="form-group">
+                <label for="login-password">Password:</label>
+                <input type="password" id="login-password" placeholder="Enter your password" required>
+            </div>
+
+            <div id="zkp-auth" class="zkp-container hidden">
+                <div class="zkp-steps">
+                    <div class="zkp-step active" id="zkp-step-1">
+                        <div class="zkp-step-number">1</div>
+                        <div>Challenge</div>
+                    </div>
+                    <div class="zkp-step" id="zkp-step-2">
+                        <div class="zkp-step-number">2</div>
+                        <div>Response</div>
+                    </div>
+                    <div class="zkp-step" id="zkp-step-3">
+                        <div class="zkp-step-number">3</div>
+                        <div>Verification</div>
+                    </div>
+                </div>
+
+                <div class="zkp-info">
+                    <i class="fas fa-info-circle"></i> Zero Knowledge Proof allows you to prove your identity without
+                    revealing your password.
+                </div>
+
+                <div id="zkp-challenge-container">
+                    <button type="button" onclick="requestZKPChallenge()">
+                        <i class="fas fa-key"></i> Request ZKP Challenge
+                    </button>
+                </div>
+
+                <div id="zkp-response-container" class="hidden">
+                    <div class="form-group">
+                        <label>Challenge ID:</label>
+                        <input type="text" id="zkp-challenge-id" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Your Response:</label>
+                        <input type="text" id="zkp-response" placeholder="Enter your ZKP response">
+                    </div>
+                    <button type="button" onclick="submitZKPResponse()">
+                        <i class="fas fa-paper-plane"></i> Submit Response
+                    </button>
+                </div>
+
+                <div id="zkp-verification-container" class="hidden">
+                    <div class="form-group">
+                        <label>Verification Status:</label>
+                        <div id="zkp-verification-status"></div>
+                    </div>
+                    <button type="button" onclick="completeZKPLogin()">
+                        <i class="fas fa-check-circle"></i> Complete Login
+                    </button>
+                </div>
+            </div>
+
+            <button type="submit" id="login-button" onclick="loginUser(event)">
+                <i class="fas fa-lock-open"></i> Secure Login
+            </button>
+        </form>
+        <div id="login-status" class="status"></div>
+    </div>
+
+    <!-- Email View Section -->
+    <div id="email-view" class="container hidden">
+        <div class="section-header">
+            <i class="fas fa-envelope-open-text"></i>
+            <h2>Decrypted Message</h2>
+        </div>
+        <div class="security-badge">
+            <i class="fas fa-shield-alt"></i> Quantum-Resistant Decryption
+        </div>
+        <div class="form-group">
+            <label><i class="fas fa-user"></i> From:</label>
+            <div id="email-sender"></div>
+        </div>
+        <div class="form-group">
+            <label><i class="fas fa-envelope"></i> Subject:</label>
+            <div id="email-subject"></div>
+        </div>
+        <div class="form-group">
+            <label><i class="fas fa-comment-alt"></i> Message:</label>
+            <div id="email-content"></div>
+        </div>
+        <div class="form-group">
+            <label><i class="fas fa-signature"></i> Signature Verification:</label>
+            <div id="email-signature"></div>
+        </div>
+        <div class="form-group">
+            <label><i class="fas fa-shield-alt"></i> Encryption Algorithm:</label>
+            <div id="email-algorithm"></div>
+        </div>
+        <button onclick="document.getElementById('email-view').classList.add('hidden')"><i
+                class="fas fa-arrow-left"></i>Back to Inbox</button>
+    </div>
+
+    <!-- Add this new section after your other containers -->
+    <div id="wallet-section" class="container hidden">
+        <div class="section-header">
+            <i class="fas fa-wallet"></i>
+            <h2>Quantum-Resistant Key Wallet</h2>
+        </div>
+
+        <div class="security-info">
+            <h3><i class="fas fa-shield-alt"></i> Secure Key Management</h3>
+            <p>Your wallet securely stores your quantum-resistant keys with the highest level of protection.</p>
+            <ul>
+                <li>Manage multiple keys for different purposes</li>
+                <li>View key details and algorithms</li>
+                <li>Generate new quantum-resistant keys</li>
+            </ul>
+        </div>
+
+        <div class="form-group">
+            <label for="wallet-username">Your Username:</label>
+            <input type="text" id="wallet-username" placeholder="Enter your username" required>
+        </div>
+
+        <button onclick="loadWallet()"><i class="fas fa-sync-alt"></i>Load Wallet</button>
+        <button onclick="createWallet()"><i class="fas fa-plus-circle"></i>Create New Wallet</button>
+
+        <div id="wallet-container" class="hidden">
+            <div class="wallet-header">
+                <h3>Your Quantum Key Wallet</h3>
+                <div id="wallet-id" class="wallet-id"></div>
+                <div id="wallet-created" class="wallet-created"></div>
+            </div>
+
+            <div class="wallet-keys">
+                <h4><i class="fas fa-key"></i> Your Keys</h4>
+                <div id="keys-list" class="keys-list"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="new-key-name">New Key Name:</label>
+                <input type="text" id="new-key-name" placeholder="Enter a name for your new key">
+            </div>
+
+            <div class="form-group">
+                <label for="new-key-algorithm">Algorithm:</label>
+                <select id="new-key-algorithm">
+                    <option value="hybrid-rsa">Hybrid RSA-4096 with AES-256 (Recommended)</option>
+                    <option value="extended-rsa">Extended RSA-8192 (Maximum Security)</option>
+                    <option value="hash-based">Hash-Based Signatures (Quantum-Resistant)</option>
+                    <option value="aes-256-gcm">AES-256-GCM (Symmetric Encryption)</option>
+                </select>
+            </div>
+
+            <button onclick="generateNewKey()"><i class="fas fa-plus"></i>Generate New Key</button>
+        </div>
+
+        <div id="key-details-container" class="hidden">
+            <h3>Key Details</h3>
+            <div class="form-group">
+                <label>Key Name:</label>
+                <div id="key-name"></div>
+            </div>
+            <div class="form-group">
+                <label>Algorithm:</label>
+                <div id="key-algorithm"></div>
+            </div>
+            <div class="form-group">
+                <label>Created:</label>
+                <div id="key-created"></div>
+            </div>
+            <div class="form-group">
+                <label>Public Key:</label>
+                <textarea id="key-public" readonly rows="3"></textarea>
+            </div>
+            <button onclick="hideKeyDetails()"><i class="fas fa-arrow-left"></i>Back to Wallet</button>
+        </div>
+
+        <div id="wallet-status" class="status"></div>
+    </div>
+
+
+
+    <script src="./script.js "></script>
+
+
+</body>
+
+</html>

@@ -2,7 +2,7 @@
 
 A cutting-edge secure email system that implements quantum-resistant cryptographic algorithms to protect communications against both classical and quantum computing attacks.
 
-## 🚀 Overview
+## Overview
 
 This project demonstrates advanced cryptographic techniques including:
 - **Quantum-resistant encryption algorithms**
